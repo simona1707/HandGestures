@@ -6,9 +6,13 @@ Arduino_Serial = serial.Serial('com12',9600)       # Initialize serial and Creat
  
 while 1:
     incoming_data = str (Arduino_Serial.readline()) # read the serial data and print it as line
-    print (incoming_data)                            # print the incoming Serial data
-     
+    print (incoming_data)                           # print the incoming Serial data
 
+    check_data (incoming_data)                      # check the recieved data
+
+    incoming_data = "";                            # clears the data
+
+def check_data(incoming_data):
     if 'next' in incoming_data:                    # if incoming data is 'next'
         pyautogui.hotkey('ctrl', 'pgdn')           # perform "ctrl+pgdn" operation which moves to the next tab
         
@@ -20,12 +24,10 @@ while 1:
         pyautogui.scroll(-100) 
          
     if 'up' in incoming_data:                      # if incoming data is 'up'
-        #pyautogui.press('up')                      # performs "up arrow" operation which scrolls up the page
+        #pyautogui.press('up')                     # performs "up arrow" operation which scrolls up the page
         pyautogui.scroll(100)
         
     if 'change' in incoming_data:                  # if incoming data is 'change'
         pyautogui.keyDown('alt')                   # performs "alt+tab" operation which switches the tab
         pyautogui.press('tab')
         pyautogui.keyUp('alt')
-        
-    incoming_data = "";                            # clears the data
